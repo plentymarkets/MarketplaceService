@@ -105,25 +105,19 @@ class ContactService {
         $newAddress = null;
         $contact    = $this->createContact($contactData);
 
-        //pluginApp(AuthenticationService::class)->loginWithContactId($contact->id, (string)$contactData['password']);
-
         if(!is_null($contact) && $contact->id > 0)
         {
             /** @var AuthHelper $authHelper */
             $authHelper = pluginApp(AuthHelper::class);
 
-            if ($addressData !== null)
-            {
-                $newAddress = $authHelper->processUnguarded( function () use ($addressData, $contact)
-                {
+            if ($addressData !== null) {
+                $newAddress = $authHelper->processUnguarded( function () use ($addressData, $contact) {
                     return $this->createAddress($addressData, $contact, self::ADDRESS_BILLING_TYPE);
                 });
             }
 
-            $contact = $authHelper->processUnguarded( function () use ($newAddress, $contactData, $contact)
-            {
-                if ($newAddress instanceof Address)
-                {
+            $contact = $authHelper->processUnguarded( function () use ($newAddress, $contactData, $contact) {
+                if ($newAddress instanceof Address) {
                     $contactData['gender']    = $newAddress->gender;
                     $contactData['firstName'] = $newAddress->firstName;
                     $contactData['lastName']  = $newAddress->lastName;
@@ -169,16 +163,15 @@ class ContactService {
      */
     public function createAddress(array $addressData, Contact $contact, int $type):Address
     {
+        /** @var AuthHelper $authHelper */
         $authHelper  = pluginApp(AuthHelper::class);
         $addressRepo = $this->contactAddressRepository;
 
-        $newAddress = $authHelper->processUnguarded( function() use ($addressData, $contact, $addressRepo, $type)
-        {
+        $newAddress = $authHelper->processUnguarded( function() use ($addressData, $contact, $addressRepo, $type) {
             return $addressRepo->createAddress($addressData, $contact->id, $type);
         });
 
-        if($type == self::ADDRESS_BILLING_TYPE && isset($addressData['name1']) && strlen($addressData['name1']))
-        {
+        if($type == self::ADDRESS_BILLING_TYPE && isset($addressData['name1']) && strlen($addressData['name1'])) {
             $this->createAccount([
                 'companyName' => $addressData['name1'],
             ], $contact->id);
@@ -192,13 +185,11 @@ class ContactService {
      * @param int $contactId
      * @return null|Contact
      */
-    public function updateContact(array $contactData, int $contactId)
+    private function updateContact(array $contactData, int $contactId)
     {
-        if($contactId > 0)
-        {
+        if($contactId > 0) {
             return $this->contactRepository->updateContact($contactData, $contactId);
         }
-
         return null;
     }
 
@@ -206,19 +197,19 @@ class ContactService {
      * @param $accountData
      * @param int $contactId
      */
-    public function createAccount($accountData, int $contactId)
+    private function createAccount($accountData, int $contactId)
     {
         /** @var AuthHelper $authHelper */
         $authHelper  = pluginApp(AuthHelper::class);
+
+        /** @var ContactAccountRepositoryContract $accountRepo */
         $accountRepo = pluginApp(ContactAccountRepositoryContract::class);
 
-        $account = $authHelper->processUnguarded( function() use ($accountData, $contactId, $accountRepo)
-        {
+        $account = $authHelper->processUnguarded( function() use ($accountData, $contactId, $accountRepo) {
             return $accountRepo->createAccount($accountData, (int)$contactId);
         });
 
-        if($account instanceof Account && (int)$account->id > 0)
-        {
+        if($account instanceof Account && (int)$account->id > 0) {
             $this->updateContact([
                 'classId' => 1
             ], $contactId);
@@ -292,8 +283,8 @@ class ContactService {
     /**
      * @return WebstoreConfiguration
      */
-    private function getWebStoreId() {
-
+    public function getWebStoreId()
+    {
         $app                      = pluginApp(Application::class);
         $webStoreConfigRepository = pluginApp(WebstoreConfigurationRepositoryContract::class);
 

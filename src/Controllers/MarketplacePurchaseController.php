@@ -2,13 +2,13 @@
 
 namespace MarketplaceService\Controllers;
 
-use Plenty\Plugin\ConfigRepository;
+use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Http\Response;
-use Plenty\Plugin\Application;
-use Plenty\Plugin\Controller;
+use Plenty\Plugin\ConfigRepository;
 use Plenty\Modules\Ticket\Models\Ticket;
 use MarketplaceService\Services\TicketService;
+use MarketplaceService\Services\ContactService;
 
 /**
  * Class MarketplacePurchaseController
@@ -17,16 +17,22 @@ use MarketplaceService\Services\TicketService;
 class MarketplacePurchaseController extends Controller
 {
     /**
-     * @param Request       $request
-     * @param TicketService $ticketService
-     * @return string
+     * @param Request $request
+     * @param Response $response
+     * @return Response
      */
-    public function handlePurchase(Request $request, Response $response, TicketService $ticketService)
+    public function handlePurchase(Request $request, Response $response)
     {
+        /** @var TicketService $ticketService */
+        $ticketService  = pluginApp(TicketService::class);
+
+        /** @var ContactService $contactService */
+        $contactService = pluginApp(ContactService::class);
+
         $purchaseData = $request->all();
 
-        $contact     = $this->contactService->getOrCreateContact($purchaseData);
-        $ticketData  = $this->prepareTicketData($purchaseData, $contact->id);
+        $contact     = $contactService->getOrCreateContact($purchaseData);
+        $ticketData  = $this->prepareTicketData($purchaseData, $contact['id']);
         $messageData = $this->prepareMessageData($purchaseData);
 
         if (count($ticketData))
@@ -86,12 +92,12 @@ class MarketplacePurchaseController extends Controller
             }
 
             $ticketData = [
-                "typeId"    => $ticketTypeId,
-                "statusId"  => $ticketStatusId,
-                "title"     => 'Service: ' . $data['resource']['order']['orderItems'][0]['orderItemName'],
-                "plentyId"  => pluginApp(Application::class)->getPlentyId(),
-                "source"    => "frontend",
-                "owners"    => $owners
+                "typeId"   => $ticketTypeId,
+                "statusId" => $ticketStatusId,
+                "title"    => 'Service: ' . $data['resource']['order']['orderItems'][0]['orderItemName'],
+                "plentyId" => pluginApp(ContactService::class)->getWebStoreId(),
+                "source"   => "frontend",
+                "owners"   => $owners
             ];
 
             if($contactId > 0) {
