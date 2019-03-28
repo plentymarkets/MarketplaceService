@@ -1,8 +1,8 @@
 # Release Notes for Service Helper
 
 ## v1.0.4 (2019-03-28)
-- Erstellung des Kontakts im plentymarkets System.
-- Verknüpfung Kontakt mit dem Ticket.
+- Erstellung des Kontakts, wenn dieser noch nicht im plentymarkets System hinterlegt ist.
+- Verknüpfung des Kontakts mit dem Ticket.
 
 ## v1.0.3 (2019-03-14)
 - Anpassung der Eingabefeldernamen in der Konfiguration.
