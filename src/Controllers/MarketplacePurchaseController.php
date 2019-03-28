@@ -23,8 +23,11 @@ class MarketplacePurchaseController extends Controller
      */
     public function handlePurchase(Request $request, Response $response, TicketService $ticketService)
     {
-        $ticketData  = $this->prepareTicketData($request->all());
-        $messageData = $this->prepareMessageData($request->all());
+        $purchaseData = $request->all();
+
+        $contact     = $this->contactService->getOrCreateContact($purchaseData);
+        $ticketData  = $this->prepareTicketData($purchaseData, $contact->id);
+        $messageData = $this->prepareMessageData($purchaseData);
 
         if (count($ticketData))
         {
@@ -40,9 +43,10 @@ class MarketplacePurchaseController extends Controller
 
     /**
      * @param array $data
+     * @param int $contactId
      * @return array
      */
-    private function prepareTicketData(array $data)
+    private function prepareTicketData(array $data, int $contactId = 0)
     {
         $ticketDataOk = false;
 
@@ -81,14 +85,19 @@ class MarketplacePurchaseController extends Controller
                 }
             }
 
-            return [
-                "typeId" => $ticketTypeId,
-                "statusId" => $ticketStatusId,
-                "title" => 'Service: ' . $data['resource']['order']['orderItems'][0]['orderItemName'],
-                "plentyId" => pluginApp(Application::class)->getPlentyId(),
-                "source" => "frontend",
-                "owners" => $owners
+            $ticketData = [
+                "typeId"    => $ticketTypeId,
+                "statusId"  => $ticketStatusId,
+                "title"     => 'Service: ' . $data['resource']['order']['orderItems'][0]['orderItemName'],
+                "plentyId"  => pluginApp(Application::class)->getPlentyId(),
+                "source"    => "frontend",
+                "owners"    => $owners
             ];
+
+            if($contactId > 0) {
+                $ticketData["contactId"] = $contactId;
+            }
+            return $ticketData;
         }
         return [];
     }
