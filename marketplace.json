@@ -1,0 +1,8 @@
+{
+    "marketplaceName"   : {"de":"German display name of plugin","en":"English display name of plugin"},
+    "license"           : "AGPL-3.0",
+    "price"             : 0.00,
+    "shortDescription"  : {"de":"Ermöglicht es, Dienstleistungsaufträge im plentymarkets Ticketsystem anzuzeigen.","en":"Use the plentymarkets ticket system to display your service's orders."},
+    "categories"        : ["3521"],
+    "keywords"          : ["service"]
+}

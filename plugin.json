@@ -1,0 +1,16 @@
+{
+	"version"           : "1.0.3",
+	"name"              : "MarketplaceService",
+	"marketplaceName"   : {"de": "Dienstleistungsassistent","en": "Service Helper"},
+	"description"       : "A plugin to simplify offering services. Developed by plentymarkets.",
+	"shortDescription"  : {"de": "Ermöglicht es, Dienstleistungsaufträge im plentymarkets Ticketsystem anzuzeigen.", "en": "Use the plentymarkets ticket system to display your service's orders."},
+	"author"            : "plentysystems AG",
+	"authorIcon"        : "icon_author_xs.png",
+	"pluginIcon"        : "icon_plugin_xs.png",
+	"price"				: 0.00,
+	"license"			: "AGPL-3.0",
+	"type"              : "general",
+	"namespace"         : "MarketplaceService",
+	"serviceProvider"   : "MarketplaceService\\Providers\\MarketplaceServiceProvider",
+	"javaScriptFiles"   : []
+}

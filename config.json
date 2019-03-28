@@ -1,0 +1,54 @@
+{
+	"formatVersion": 1,
+	"menu": {
+		"Config.RouteTab": {
+			"label": "Config.RouteTab",
+			"formFields": {
+				"route.web.hook": {
+					"type": "inputText",
+					"required": true,
+					"label": "Config.routeWebHook",
+					"options": {
+						"defaultValue": "/service/tickets"
+					}
+				}
+			}
+		},
+		"Config.TicketTab": {
+			"label": "Config.TicketTab",
+			"formFields": {
+				"ticket.role.id": {
+					"type": "inputText",
+					"required": true,
+					"label": "Config.ticketRoleId",
+					"options": {}
+				},"ticket.type.id": {
+					"type": "inputText",
+					"required": true,
+					"label": "Config.ticketTypeId",
+					"options": {}
+				},"ticket.status.id": {
+					"type": "inputText",
+					"required": true,
+					"label": "Config.ticketStatusId",
+					"options": {}
+				},"ticket.user.id.one": {
+					"type": "inputText",
+					"required": true,
+					"label": "Config.ticketUserIdOne",
+					"options": {}
+				},"ticket.user.id.two": {
+					"type": "inputText",
+					"required": false,
+					"label": "Config.ticketUserIdTwo",
+					"options": {}
+				},"ticket.user.id.three": {
+					"type": "inputText",
+					"required": false,
+					"label": "Config.ticketUserIdThree",
+					"options": {}
+				}
+			}
+		}
+	}
+}
