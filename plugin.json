@@ -1,5 +1,5 @@
 {
-	"version"           : "1.0.3",
+	"version"           : "1.0.4",
 	"name"              : "MarketplaceService",
 	"marketplaceName"   : {"de": "Dienstleistungsassistent","en": "Service Helper"},
 	"description"       : "A plugin to simplify offering services. Developed by plentymarkets.",
