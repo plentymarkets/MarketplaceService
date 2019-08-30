@@ -113,20 +113,30 @@ class MarketplacePurchaseController extends Controller
      */
     private function prepareMessageData(array $data)
     {
-        $message = '<strong>Service-Artikel:</strong> ' . $data['resource']['order']['orderItems'][0]['orderItemName'] .
-            '<br/><br/><strong>Kunde:</strong> ' .
-            '<p style="margin-left: 20px;"><strong>Name:</strong> (' . $data['resource']['contact']['gender'] . ') ' . $data['resource']['contact']['firstName'] . ' ' . $data['resource']['contact']['lastName'] .
-            '<br/><strong>Email:</strong> ' . $data['resource']['contact']['email'] . '</p>' .
-            '<br/><strong>Auftrag-Details:</strong>' .
-            '<p style="margin-left: 20px;"><strong>Auftrags-Id:</strong> ' . $data['resource']['order']['id'] .
-            '<br/><strong>PayPal-TransactionId:</strong> ' . $data['resource']['order']['payPalTransactionId'] . '</p>';
+        /** @var ConfigRepository $configRepository */
+        $configRepository = pluginApp(ConfigRepository::class);
 
-        foreach ($data['resource']['order']['orderItems'] as $orderItem){
-            if($orderItem['itemVariationId'] > 0){
-                $message = $message .
-                    '<p style="margin-left: 20px;"><strong>Artikelname:</strong> ' . $orderItem['orderItemName'] .
-                    '<br/><strong>Preis-Netto:</strong> ' . $orderItem['priceNet'] .
-                    '<br/><strong>Preis-Brutto:</strong> ' . $orderItem['priceGross'] . '</p>';
+        $ticketMessage = $configRepository->get('MarketplaceService.ticket.message');
+
+        if (strlen($ticketMessage) > 0)
+        {
+            $message = $ticketMessage;
+        } else {
+            $message = '<strong>Service-Artikel:</strong> ' . $data['resource']['order']['orderItems'][0]['orderItemName'] .
+                '<br/><br/><strong>Kunde:</strong> ' .
+                '<p style="margin-left: 20px;"><strong>Name:</strong> (' . $data['resource']['contact']['gender'] . ') ' . $data['resource']['contact']['firstName'] . ' ' . $data['resource']['contact']['lastName'] .
+                '<br/><strong>Email:</strong> ' . $data['resource']['contact']['email'] . '</p>' .
+                '<br/><strong>Auftrag-Details:</strong>' .
+                '<p style="margin-left: 20px;"><strong>Auftrags-Id:</strong> ' . $data['resource']['order']['id'] .
+                '<br/><strong>PayPal-TransactionId:</strong> ' . $data['resource']['order']['payPalTransactionId'] . '</p>';
+
+            foreach ($data['resource']['order']['orderItems'] as $orderItem){
+                if($orderItem['itemVariationId'] > 0){
+                    $message = $message .
+                        '<p style="margin-left: 20px;"><strong>Artikelname:</strong> ' . $orderItem['orderItemName'] .
+                        '<br/><strong>Preis-Netto:</strong> ' . $orderItem['priceNet'] .
+                        '<br/><strong>Preis-Brutto:</strong> ' . $orderItem['priceGross'] . '</p>';
+                }
             }
         }
 

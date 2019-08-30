@@ -47,6 +47,11 @@
 					"required": false,
 					"label": "Config.ticketUserIdThree",
 					"options": {}
+				},"ticket.message": {
+					"type": "inputTextArea",
+					"required": false,
+					"label": "Config.ticketMessage",
+					"options": {}
 				}
 			}
 		}
