@@ -22,10 +22,7 @@ After configuring the plugin, you can automate your processes. [Automatically se
 
 ## Further reading
 
-For more information on how to offer your own services, see:
- 
-* [Services requirements](https://developers.plentymarkets.com/marketplace/services-requirements)
-* [Service plugin tutorial](https://developers.plentymarkets.com/tutorials/service-plugin)
+For more information on how to offer your own services, see the [Offering services and tools](https://developers.plentymarkets.com/en-gb/developers/main/plentymarketplace/service-tool-offers.html) page in the Developers Documentation.
  
 ## License
  

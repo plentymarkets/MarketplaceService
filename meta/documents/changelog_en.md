@@ -1,5 +1,8 @@
 # Release Notes for Service Helper
 
+## v1.0.6 (2021-02-26)
+- Updated an outdated link in the user guide.
+
 ## v1.0.4 (2019-03-28)
 - Creates new contact if it does not already exist in the plentymarkets system.
 - Links contact to the ticket.

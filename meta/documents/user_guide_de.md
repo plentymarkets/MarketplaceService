@@ -22,11 +22,8 @@ Nachdem Sie das Plugin eingerichtet haben, können Sie Ihre Arbeitsabläufe noch
 
 ## Verwandte Themen
 
-Weitere Informationen dazu, wie Sie Dienstleistungen auf plentyMarketplace anbieten können, finden Sie auf folgenden Seiten (nur auf Englisch):
- 
-* [Services requirements](https://developers.plentymarkets.com/marketplace/services-requirements)
-* [Service plugin tutorial](https://developers.plentymarkets.com/tutorials/service-plugin)
- 
+Weitere Informationen dazu, wie Sie Dienstleistungen auf plentyMarketplace anbieten können, finden Sie auf der Seite [Offering services and tools](https://developers.plentymarkets.com/en-gb/developers/main/plentymarketplace/service-tool-offers.html) der Entwicklerdokumentation (nur auf Englisch).
+
 ## Lizenz
  
 Das gesamte Projekt unterliegt der GNU AFFERO GENERAL PUBLIC LICENSE – weitere Informationen finden Sie in der [LICENSE.md](https://github.com/ksted/MarketplaceService/blob/master/LICENSE.md)-Datei.
